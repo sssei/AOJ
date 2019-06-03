@@ -19,9 +19,20 @@ void Bubblesort(vector <string> &vec, int N){
 }
 
 void SelectionSort(vector <string> &vec, int N){
-  
+  for(int i = 0; i < N-1; i++){
+    min_j = i;
+    bool flag = false;
+    for(int j = i; j < N; j++){
+      if(vec[j][1] < vec[min_j][1]){
+	min_j = j;
+	flag = true;
+      }
+    }
+    if(flag) swap(vec[i],vec[min_j]);
+  }
 }
-  
+
+int judge(vector <string> vec, )
 int main(){
   
 }
