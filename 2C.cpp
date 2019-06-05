@@ -10,7 +10,7 @@ void Bubblesort(vector <string> &vec, int N){
   while(flag){
     flag = false;
     for(int i = 0; i < N-1; i++){
-      if(vec[i][1] > vec[i+1][1]){
+      if((int)vec[i][1] > (int)vec[i+1][1]){
 	swap(vec.at(i),vec.at(i+1));
 	flag = true;
       }
@@ -18,12 +18,13 @@ void Bubblesort(vector <string> &vec, int N){
   }
 }
 
+
 void SelectionSort(vector <string> &vec, int N){
   for(int i = 0; i < N-1; i++){
-    min_j = i;
+    int min_j = i;
     bool flag = false;
-    for(int j = i; j < N; j++){
-      if(vec[j][1] < vec[min_j][1]){
+    for(int j = i + 1; j < N; j++){
+      if((int)vec[j][1] < (int)vec[min_j][1]){
 	min_j = j;
 	flag = true;
       }
@@ -32,7 +33,30 @@ void SelectionSort(vector <string> &vec, int N){
   }
 }
 
-int judge(vector <string> vec, )
+
 int main(){
-  
+  int N; cin >> N;
+  vector <string> vec(N);
+  for(int i = 0; i < N; i++){
+    cin >> vec.at(i);
+  }
+
+  vector <string> vec2 = vec;
+  Bubblesort(vec,N);
+  for(int i = 0; i < N - 1; i++){
+    cout << vec.at(i) << " ";
+  }
+  cout << vec.at(N-1) << endl;
+  cout << "Stable" << endl;
+
+  SelectionSort(vec2,N);
+  for(int i = 0; i < N - 1; i++){
+    cout << vec2.at(i) << " ";
+  }
+  cout << vec2.at(N-1) << endl;
+  if(vec == vec2){
+    cout << "Stable" << endl;
+  }else{
+    cout << "Not stable" << endl;
+  }
 }
