@@ -4,8 +4,6 @@
 
 using namespace std;
 
-
-
 void bubble(vector <string> &A, int N){
   for(int i = 0; i < N; i++){
     for (int j = N-1; j >= i + 1; j--){
