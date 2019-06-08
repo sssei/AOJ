@@ -1,16 +1,16 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <numeric>
 
 using namespace std;
 
 int main(){
-  int l;
-  vector <int> vec;
-  int i = 0;
-  while(cin >> l){
-    vec.push_back(l);
+  vector <int> vec(10);
+  iota(vec.begin(),vec.end(),1);
+  vec.erase(vec.begin() + 1);
+  for (int i = 0; i < 9; i++){
     cout << vec.at(i) << endl;
-    i++;
   }
+
 }
