@@ -1,8 +1,28 @@
 #include <iostream>
 #include <vector>
 #include <utility>
+#define LEN 100
 
 using namespace std;
+
+typedef struct P{
+  string p;
+  int n;
+}pt;
+
+class Q{
+private:
+  vector<> vec(LEN);
+  int top;
+  int tail;
+public:
+  void enqueue(){
+    vec.at(tail) = 
+    tail++;
+  }
+}
+
+
 
 int main(){
   cin.tie(0);
