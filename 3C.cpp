@@ -1,30 +1,26 @@
 #include <cstring>
 #include <cstdio>
 #include <string>
-
+#include <cstdlib>
 using namespace std;
-
 struct Node{
   int key;
   Node *next,*prev;
 };
-
 Node *nil;
-
 void init(){
-  nil = new Node;
+  nil = (Node*)malloc(sizeof(Node));
   nil->next = nil;
   nil->prev = nil;
 }
-
 void insert(int key){
-  Node *x = new Node;
+  Node *x = (Node*)malloc(sizeof(Node));
   x->next = nil->next;
-  nil->next->prev = x->next;
-  nil->prev = x;
+  nil->next->prev = x;
+  nil->next = x;
   x->prev = nil;
+  x->key = key;
 }
-
 Node* listSearch(int key){
   Node *cur = nil->next;
   while(cur != nil && cur->key != key){
@@ -32,56 +28,51 @@ Node* listSearch(int key){
   }
   return cur;
 }
-
 void deleteNode(Node* t){
   if(t == nil) return;
   t->prev->next = t->next;
   t->next->prev = t->prev;
-  delete t;
+  free(t);
 }
-
 void deleteFirst(){
   deleteNode(nil->next);
 }
-
 void deleteLast(){
   deleteNode(nil->prev);
 }
-
 void deletekey(int key){
   deleteNode(listSearch(key));
 }
-
 void printNode(){
   Node *cur = nil->next;
-  printf("%d",cur->key);
-  cur = cur->next;
-  while(cur != nil){
-    printf(" %d",cur->key);
+  int isf = 0;
+  while(1){
+    if( cur == nil)break;
+    if(isf++ > 0) printf(" ");
+    printf("%d", cur->key);
     cur = cur->next;
   }
   printf("\n");
 }
-
 int main(){
   int n;
+  int key;
+  char com[20];
   init();
   scanf("%d",&n);
   for(int i = 0; i < n; i++){
     char s[10];
     int c;
-    scanf("%s", s);
-    if(strcmp(s,"insert") == 0){
-      scanf("%d", &c);
-      insert(c);
-    }else if(strcmp(s,"delete") == 0){
-      scanf("%d", &c);
-      deletekey(c);
-    }else if(strcmp(s,"deleteFirst") == 0){
-      deleteFirst();
-    }else{
-      deleteLast();
+    scanf("%s%d", com, &key);
+    if(com[0] == 'i'){insert(key);}
+    else if(com[0] == 'd'){
+      if(strlen(com) > 6){
+	if(com[6] == 'F') deleteFirst();
+	else deleteLast();
+      }else{
+	deletekey(key);
+      }
     }
   }
-  printNode();  
+  printNode();
 }
