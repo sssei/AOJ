@@ -12,20 +12,18 @@ int main(){
   for(int i = 0; i < q; i++) cin >> T.at(i);
   int cnt = 0;
   for(int i = 0; i < q; i++){
-    int a = 0;
-    int b = n;
-    int c = (a+b)/2;
-    while(a != c){
-      if(T.at(i) < c){
-	b = c;
-	c = (a+b)/2;
-      }else{
-	a = c;
-	c = (a+b)/2;
-      }
-      if(T.at(i) == S.at(c)){
+    int left = 0;
+    int right = n;
+    int mid;
+    while(left < right){
+      mid = (left + right)/2;
+      if(T.at(i) < S.at(mid)){
+	right = mid;
+      }else if(T.at(i) == S.at(mid)){
 	cnt++;
 	break;
+      }else{
+	left = mid + 1;
       }
     }
   }
