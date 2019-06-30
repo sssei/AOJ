@@ -25,6 +25,12 @@ void quickSort(pair<int, string> A[], int p, int r){
   }
 }
 
+void judge(pair<int ,string> A[], pair<int, string> B[], int n){
+  for(int i = 0; i < n; i++){
+    
+  }
+}
+
 int main(){
   int n; cin >> n;
   pair<int, string> A[n];
