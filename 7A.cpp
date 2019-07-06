@@ -14,6 +14,7 @@ struct Node{
 Node T[MAX];
 
 void setDepth(int u,int p){
+
   D[u] = p;
   if(T[u].right != NIL){
     setDepth(T[u].right, p);
@@ -38,7 +39,10 @@ int main(){
 
   for(int i = 0; i < n; i++){
     T[i].parent = NIL;
+    T[i].right = NIL;
+    T[i].left = NIL;
   }
+  
   
   for(int i = 0; i < n; i++){
     int idx; 
@@ -48,15 +52,15 @@ int main(){
       vector<int> C(k);
       for(int j = 0; j < k; j++){
 	cin >> C[j];
-	T[C[j]].parent = i;
+	T[C[j]].parent = idx;
       }
-      T[i].left = C[0];
+      T[idx].left = C[0];
       for(int j = 0; j < k-1; j++){
 	T[C[j]].right = C[j+1];
       }     
       T[C[k-1]].right = NIL;
     }else{
-      T[i].left = NIL;
+      T[idx].left = NIL;
     }
   }
 
@@ -66,10 +70,12 @@ int main(){
       u = i;
       break;
     }
-  } 
+  }
+
+
   setDepth(u, 0);
-  cout << u << endl;
-  /*  for(int i = 0; i < n; i++){
+
+  for(int i = 0; i < n; i++){
     cout << "node " << i ;
     cout << ": parent = " << T[i].parent;
     cout << ", depth = " << D[i] << ", ";
@@ -89,5 +95,5 @@ int main(){
     }
     cout << "]" << endl;
   }
-  */
+ 
 }
