@@ -30,25 +30,33 @@ void insert(Node *z){
   }
 }
 
-void deleteNode(Node *T, bool flag){
-  if(T->right == NIL && T->left == NIL){
-    if(flag){
-      T->parent->right = NIL;
-    }else{
-      T->parent->left = NIL;
-    }
-  }else if(T->right != NIL && T->left != NIL){
-      T->key = T->right->key;
-      deleteNode(T->right, true);
+void deleteNode(Node *T, Node* z){
+  Node *y;
+  if(z->left == NIL || z->right == NIL){
+    y = z;
   }else{
-    if(T->right != NIL){
-      if(flag) T->parent->right = T->right;
-      else T->parent->left = T->right;
-    }else{
-      if(flag) T->parent->right = T->left;
-      else T->parent->left = T->left;
-    }
+    y = getSuccessor(z);
   }
+}
+
+Node* getSuccessor(Node *x){
+  if(x->right != NIL){
+    return getMinimun(x.right);
+  }
+  Node *y = x->parent;
+  while(y != NIL && y.right == x){
+    x = y;
+    y = y.parent;
+  }
+  return y;
+}
+
+Node* getMinimun(Node *x){
+  Node* y = x.left;
+  while(y != NIL){
+    y = y.left;
+  }
+  return y;
 }
 
 void search(int key, Node *T, bool flag){
