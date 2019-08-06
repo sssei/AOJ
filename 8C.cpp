@@ -30,6 +30,25 @@ void insert(Node *z){
   }
 }
 
+Node* getMinimun(Node *x){
+  while(x->left != NIL){
+      x = x->left;
+  }
+  return x;
+}
+
+Node* getSuccessor(Node *x){
+  if(x->right != NIL){
+    return getMinimun(x->right);
+  }
+  Node *y = x->parent;
+  while(y != NIL && y->right == x){
+    x = y;
+    y = y->parent;
+  }
+  return y;
+}
+ 
 void deleteNode(Node *T, Node* z){
   Node *y;
   if(z->left == NIL || z->right == NIL){
@@ -37,40 +56,36 @@ void deleteNode(Node *T, Node* z){
   }else{
     y = getSuccessor(z);
   }
-}
 
-Node* getSuccessor(Node *x){
-  if(x->right != NIL){
-    return getMinimun(x.right);
+  Node *x;
+  if(y->left != NIL){
+    x = y->left;
+  }else{
+    x = y->right;
   }
-  Node *y = x->parent;
-  while(y != NIL && y.right == x){
-    x = y;
-    y = y.parent;
+
+  if(y->parent == NIL){
+    T = x;
+  }else if(y->parent->right == y){
+    y->parent->right = x;
+  }else{
+    y->parent->left = x;
   }
-  return y;
-}
 
-Node* getMinimun(Node *x){
-  Node* y = x.left;
-  while(y != NIL){
-    y = y.left;
+  if(y != z){
+    z->key = y->key;
   }
-  return y;
 }
 
-void search(int key, Node *T, bool flag){
-  if(T->key == key) deleteNode(T, flag);
-  else if(T->key > key) search(key, T->left, false);
-  else search(key, T->right, true);
+
+Node *find(Node *u, int k){
+  while(u != NIL && k != u->key){
+    if(k < u->key) u = u->left;
+    else u = u->right;
+  }
+  return u;
 }
 
-bool find(int key, Node* T){
-  if(T == NIL) return false;
-  if(T->key == key) return true;
-  if(T->key < key) find(key, T->right);
-  else find(key, T->left);
-}
 void inorder(Node *u){
   if(u == NIL) return;
   inorder(u->left);
@@ -110,10 +125,14 @@ int main(){
       }else{
 	cout << "no" << endl;
       }
-    }else{
+    }else if(order[0] == 'd'){
       int key; cin >> key;
-      Node root = {0, NIL, T, NIL};
-      search(key, root.left, true);
+      Node *p = new Node;
+      p->key = key;
+      p->parent = NIL;
+      p->left = NIL;
+      p->right = NIL;
+      deleteNode(T, p);
     }
   }
 }
