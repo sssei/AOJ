@@ -63,6 +63,9 @@ void deleteNode(Node *T, Node* z){
   }else{
     x = y->right;
   }
+  if(x != NIL){
+    x->parent = y->parent;
+  }
 
   if(y->parent == NIL){
     T = x;
@@ -71,7 +74,6 @@ void deleteNode(Node *T, Node* z){
   }else{
     y->parent->left = x;
   }
-
   if(y != z){
     z->key = y->key;
   }
@@ -120,18 +122,14 @@ int main(){
       cout << endl;
     }else if(order[0] == 'f'){
       int key; cin >> key;
-      if(find(key, T)){
+      if(find(T, key) != NIL){
 	cout << "yes" << endl;
       }else{
 	cout << "no" << endl;
       }
     }else if(order[0] == 'd'){
       int key; cin >> key;
-      Node *p = new Node;
-      p->key = key;
-      p->parent = NIL;
-      p->left = NIL;
-      p->right = NIL;
+      Node *p = find(T, key);
       deleteNode(T, p);
     }
   }
