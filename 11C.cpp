@@ -27,11 +27,12 @@ int main(){
   }
   queue<int> q;
   vector<color> colors(n, WHITE);
-  vector<int> d(n);
+  vector<int> d(n,-1);
   q.push(0);
   colors[0] = GLAY;
+  d[0] = 0;
   while(!q.empty()){
-    int u = q.top(); q.pop();
+    int u = q.front(); q.pop();
     for(auto x: Adj[u]){
       if(colors[x] == WHITE){
 	q.push(x);
@@ -43,7 +44,7 @@ int main(){
   }
 
   for(int i = 0; i < n; ++i){
-    cout << i << " " << d[i] << endl;
+    cout << i + 1 << " " << d[i] << endl;
   }
 }
  
