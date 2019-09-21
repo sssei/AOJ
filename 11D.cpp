@@ -14,10 +14,13 @@ void dfs(int r, int c){
   st.push(r);
   colors[r] = c;
   while(!st.empty()){
-    int u = st.top(); st.pop();
+    int u = st.top();
+    st.pop();
     for(auto x: G[u]){
-      st.push(x);
-      colors[x] = c;
+      if(colors[x] == NIL){
+	st.push(x);
+	colors[x] = c;
+      }
     }
   }
 }
@@ -39,11 +42,6 @@ int main(){
     G[t].push_back(s);
   }
   assignColor();
-  cout << "color";
-  for(int i = 0; i < n; ++i){
-    cout << colors[i] << " ";
-  }
-  cout << endl;
   int q; cin >> q;
   for(int i = 0; i < q; ++i){
     int s,t;
